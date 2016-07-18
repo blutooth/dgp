@@ -15,7 +15,7 @@ def link(prev,post):
     prev.post=post
     post.prev=prev
 
-
+      #l
 class basicLayer(object):
     def __init__(self, l, ind, outd, n, m):
         self.l=l
