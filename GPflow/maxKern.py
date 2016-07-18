@@ -13,6 +13,7 @@ class Stationary():
     dimension, otherwise the kernel is isotropic (has a single lengthscale).
     """
     def __init__(self, input_dim, variance=None,lengthscales=None ):
+        self.input_dim=input_dim
         if variance==None:
             self.variance=tf.Variable(1.0,dtype=tf.float64)
         else:
