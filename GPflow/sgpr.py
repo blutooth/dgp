@@ -1,10 +1,10 @@
 import tensorflow as tf
 import numpy as np
-from .model import GPModel
-from .param import Param, DataHolder
-from .mean_functions import Zero
-from . import likelihoods
-from .tf_hacks import eye
+from model import GPModel
+from param import Param, DataHolder
+from mean_functions import Zero
+import likelihoods
+from tf_hacks import eye
 
 
 class SGPR(GPModel):

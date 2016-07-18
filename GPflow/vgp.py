@@ -1,10 +1,10 @@
 import tensorflow as tf
 import numpy as np
-from .param import Param, DataHolder
-from .model import GPModel
-from . import transforms
-from .mean_functions import Zero
-from .tf_hacks import eye
+from param import Param, DataHolder
+from model import GPModel
+import transforms
+from mean_functions import Zero
+from tf_hacks import eye
 
 
 class VGP(GPModel):

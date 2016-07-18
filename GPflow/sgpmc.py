@@ -1,10 +1,10 @@
 import numpy as np
 import tensorflow as tf
-from .model import GPModel
-from .param import Param, DataHolder
-from .conditionals import conditional
-from .priors import Gaussian
-from .mean_functions import Zero
+from model import GPModel
+from param import Param, DataHolder
+from conditionals import conditional
+from priors import Gaussian
+from mean_functions import Zero
 
 
 class SGPMC(GPModel):

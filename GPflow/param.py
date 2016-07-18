@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from . import transforms
+import transforms
 from contextlib import contextmanager
 from functools import wraps
 

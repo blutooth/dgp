@@ -2,8 +2,8 @@ from functools import reduce
 
 import tensorflow as tf
 import numpy as np
-from .param import Param, Parameterized, AutoFlow
-from . import transforms
+from param import Param, Parameterized, AutoFlow
+import transforms
 
 
 class Kern(Parameterized):

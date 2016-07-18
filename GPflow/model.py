@@ -1,11 +1,11 @@
 from __future__ import print_function
-from .param import Parameterized, AutoFlow, DataHolder
+from param import Parameterized, AutoFlow, DataHolder
 from scipy.optimize import minimize, OptimizeResult
 import numpy as np
 import tensorflow as tf
-from . import hmc
+import hmc
 import sys
-from . import tf_hacks
+import tf_hacks
 
 
 class ObjectiveWrapper(object):

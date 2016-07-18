@@ -1,4 +1,4 @@
-from .tf_hacks import eye
+from tf_hacks import eye
 import tensorflow as tf
 
 

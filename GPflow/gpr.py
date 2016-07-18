@@ -1,10 +1,10 @@
 import tensorflow as tf
-from .model import GPModel
-from .densities import multivariate_normal
-from .mean_functions import Zero
-from . import likelihoods
-from .tf_hacks import eye
-from .param import DataHolder
+from model import GPModel
+from densities import multivariate_normal
+from mean_functions import Zero
+import likelihoods
+from tf_hacks import eye
+from param import DataHolder
 
 
 class GPR(GPModel):

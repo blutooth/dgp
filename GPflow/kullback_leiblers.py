@@ -1,5 +1,5 @@
 import tensorflow as tf
-from .tf_hacks import eye
+from tf_hacks import eye
 
 
 def gauss_kl_white(q_mu, q_sqrt, num_latent):
@@ -94,6 +94,8 @@ def gauss_kl_diag(q_mu, q_sqrt, K,  num_latent):
 
 
 def gauss_kl(q_mu, q_sqrt, K, num_latent):
+
+
     """
     Compute the KL divergence from
 

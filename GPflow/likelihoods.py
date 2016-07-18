@@ -1,8 +1,8 @@
-from . import densities
+import densities
 import tensorflow as tf
 import numpy as np
-from .param import Parameterized, Param
-from . import transforms
+from param import Parameterized, Param
+import transforms
 hermgauss = np.polynomial.hermite.hermgauss
 
 

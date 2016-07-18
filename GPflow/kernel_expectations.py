@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-from . import kernels
+import kernels
 
 
 def build_psi_stats(Z, kern, mu, S):

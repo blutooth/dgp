@@ -1,12 +1,12 @@
 import tensorflow as tf
 import numpy as np
-from .param import Param, DataHolder
-from .model import GPModel
-from . import transforms
-from . import conditionals
-from .mean_functions import Zero
-from .tf_hacks import eye
-from . import kullback_leiblers
+from param import Param, DataHolder
+from model import GPModel
+import transforms
+import conditionals
+from mean_functions import Zero
+from tf_hacks import eye
+import kullback_leiblers
 
 
 class MinibatchData(DataHolder):

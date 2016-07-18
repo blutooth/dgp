@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-from .param import Param, Parameterized
+from param import Param, Parameterized
 
 
 class MeanFunction(Parameterized):

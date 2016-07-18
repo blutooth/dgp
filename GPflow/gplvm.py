@@ -1,13 +1,13 @@
 import tensorflow as tf
 import numpy as np
-from .model import GPModel
-from .gpr import GPR
-from .param import Param
-from .mean_functions import Zero
-from . import likelihoods
-from .tf_hacks import eye
-from . import kernel_expectations as ke
-from . import transforms
+from model import GPModel
+from gpr import GPR
+from param import Param
+from mean_functions import Zero
+import likelihoods
+from tf_hacks import eye
+import kernel_expectations as ke
+import transforms
 
 
 def PCA_reduce(X, Q):
