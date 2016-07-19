@@ -7,8 +7,9 @@ import maxHelp as Help
 import matplotlib.pylab as plt
 import maxTypes as ty
 import time
+import scipy as sp
 
-tol =1e-3
+tol =1e-4
 
 def link(prev,post):
     assert prev.outd==post.ind
@@ -64,7 +65,7 @@ class notFstLayer(basicLayer):
             zeta_l, psi_l, phi_l=self.prev.psi(j)
             mu_j=self.mu.getDim(j,[-1,1])
             M_j=self.M.getDim(j,[1,-1])
-            Kuu_chol=tf.cholesky(self.Kuu(j))
+            Kuu_chol=tf.cholesky(self.Kuu(j));
 
             #term (3)
             result-=self.f_beta*Help.Mul(M_j,psi_l,tf.cholesky_solve(Kuu_chol,mu_j))
@@ -82,14 +83,14 @@ class notFstLayer(basicLayer):
  ###############################################
 
     def Kuu(self,i):
-        return self.kern[i].K(self.prev.ps_P.getNxD()) +tol*np.eye(self.m)
+        A=self.kern[i].K(self.prev.ps_P.getNxD()) +tol*np.eye(self.m)
+        return(A+tf.transpose(A))/2
 
     def KL(self):
         KL_div=0
         for d in xrange(0,self.outd):
-            sigma_d=tf.expand_dims(self.sigma.get_dim(d),-1)
             mu_d= self.mu.getDim(d,[-1,1])
-            KL_div+=KL.gauss_kl(mu_d, sigma_d, self.Kuu(d), 1)
+            KL_div+=KL.gauss_kl(mu_d, self.sigma.get_dim(d),self.Kuu(d) )
         return KL_div
 
 class fstLayer(notLastLayer):
@@ -100,7 +101,7 @@ class fstLayer(notLastLayer):
         self.dataPoints = data
 
     def KL_H(self):
-            cov=tf.squeeze(tf.pack([self.kern[d].variance for d in xrange(self.outd)]))
+            cov=tf.reshape(tf.pack([self.kern[d].variance for d in xrange(self.outd)]),[-1,1])
             return KL.group_gauss_kl(self.M.getDxM(),self.S.getDxM(),cov,self.n)
 
     def bound(self):
@@ -136,13 +137,30 @@ class lastLayer(notFstLayer):
 
 
 
+
+
+
+
+
+#X,Y points from trining data
+def train_data(N=300):
+    sig=3
+    X=np.array(np.random.uniform(low=0,high=4*np.math.pi,size=[N,1]))
+    f_sin=np.vectorize(sp.sin,otypes=[np.float])
+    f_cos=np.vectorize(sp.cos,otypes=[np.float])
+    Y=30*f_sin(X)+30*f_cos(2*X+4)+sig*np.array(sp.randn(N,1))
+    return [X,Y]
+
 def test():
-    global s
+
+
+    n=300
+    [X,Y]=train_data(300)
+    m=20
     s=tf.Session()
-    n=20
-    layer1=fstLayer(l=1,ind=5,outd=4,n=n,m=5)
-    layer2=midLayer(l=1,ind=4,outd=2,n=n,m=5)
-    layer3=lastLayer(l=1,ind=2,outd=1,n=n,m=5)
+    layer1=fstLayer(l=1,ind=3,outd=2,n=n,m=m)
+    layer2=midLayer(l=1,ind=2,outd=1,n=n,m=m)
+    layer3=lastLayer(l=1,ind=1,outd=1,n=n,m=m)
     link(layer1,layer2);  link(layer2,layer3)
     bound=layer1.bound()+layer2.bound()+layer3.bound()
     s.run(tf.initialize_all_variables())
@@ -156,13 +174,13 @@ def test():
     count=0
     for step in xrange(10000):
         s.run(train)
-        if step % 1 == 0:
-            count+=1
+        if step % 1000 == 0:
             time.sleep(0)
-            print(s.run(layer2.Kuu(1)))
             #print('ps',s.run(layer2.ps_P) )
             print(s.run(bound))
-        print('count: ', count)
+
+            print('count: ', count)
+            print(s.run(layer2.Kuu(0)))
 
 
     '''

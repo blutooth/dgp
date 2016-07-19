@@ -15,7 +15,7 @@ class Stationary():
     def __init__(self, input_dim, variance=None,lengthscales=None ):
         self.input_dim=input_dim
         if variance==None:
-            self.variance=tf.Variable(1.0,dtype=tf.float64)
+            self.variance=tf.square(tf.Variable(1.0,dtype=tf.float64))
         else:
             self.variance=variance
         if lengthscales==None:

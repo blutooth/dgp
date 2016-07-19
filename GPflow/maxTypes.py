@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import maxHelp as Help
 
-tol=1e-2
+tol=1e-3
 
 class numxdim:
     def __init__(self, num, dim, data=None):
@@ -71,7 +71,7 @@ class full_cov:
 
     def Sigma(self,m):
         id=tol * np.eye(m, dtype=np.float64)
-        A=tf.Variable(tf.ones([m, m], dtype=tf.float64), dtype=tf.float64)
+        A=tf.Variable(tf.random_normal([m, m], mean=5.0, dtype=tf.float64), dtype=tf.float64)
         return id + tf.matmul(A, tf.transpose(A))
 
     def get_dim(self, j):
